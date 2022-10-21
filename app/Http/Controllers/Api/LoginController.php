@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,36 +31,35 @@ class LoginController extends Controller
             json($validator->errors(), 422);
         }
 
-        // $user = new User();
+        $user = User::where('email',$request->email)->first();
 
-        // $cek = User::where($request->email,$user->email)
+        if($user->where('password',$request->password)->first()){
+            return response()->json([
+                'success' => true,
+                'user'    => $user->email
+                ,
+                // 'token'   => $token
+            ], 200);
+        }
 
-        //get credentials from request
-        $credentials = request(["email","password"]);
-
-
-        // dd($credentials);
-
-        // dd(Auth::attempt(['email' => "d",'password' => "1"]));
-
-
-        //if auth failed
-        if(!Auth::attempt($credentials)){
-
-            dd($credentials);
-
-            // dd(auth()->guard('api')->user());
+        else{
             return response()->json([
                 'success' => false,
                 'message' => "fail"
             ], 401);
         }
+        
+
+
+        //if auth failed
+        // if(!Auth::attempt($credentials)){
+
+            // dd($credentials);
+
+            // dd(auth()->guard('api')->user());
+     
 
         //if auth success
-        return response()->json([
-            'success' => true,
-            'user'    => Auth::user()->email,
-            // 'token'   => $token
-        ], 200);
+    
     }
 }
