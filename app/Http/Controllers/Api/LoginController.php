@@ -11,55 +11,18 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
-    {
-        //set validation
-        $validator = Validator::make($request->all(), [
-            'email'     => 'required',
-            'password'  => 'required'
-        ]);
+public function apilogin(Request $request) {
+    $request->validate([
+       'email'=> 'required', 
+       'password'=> 'required', 
+    ]);
 
-        //if validation fails
-        if ($validator->fails()) {
-            return response()->
-            json($validator->errors(), 422);
-        }
-
+    if(Auth::attempt(['email'=> $request->email,'password'=> $request->password]) ) {
         $user = User::where('email',$request->email)->first();
-
-        if($user->where('password',$request->password)->first()){
-            return response()->json([
-                'success' => true,
-                'user'    => $user->email
-                ,
-                // 'token'   => $token
-            ], 200);
-        }
-
-        else{
-            return response()->json([
-                'success' => false,
-                'message' => "fail"
-            ], 401);
-        }
-        
-
-
-        //if auth failed
-        // if(!Auth::attempt($credentials)){
-
-            // dd($credentials);
-
-            // dd(auth()->guard('api')->user());
-     
-
-        //if auth success
-    
+        return response()->json([
+            "message" => 'sukses',
+            "data"=> $user,
+        ],200);
     }
+}
 }

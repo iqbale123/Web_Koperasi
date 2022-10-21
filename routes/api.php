@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
  * route "/login"
  * @method "POST"
  */
-Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
+// Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
+Route::post('login',[ App\Http\Controllers\Api\LoginController::class,'apilogin']);
 
 /**
  * route "/user"
@@ -22,4 +23,3 @@ Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('lo
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
