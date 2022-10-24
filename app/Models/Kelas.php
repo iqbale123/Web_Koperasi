@@ -13,5 +13,8 @@ class Kelas extends Model
         'name'
     ];
 
-
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
