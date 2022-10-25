@@ -24,5 +24,12 @@ public function apilogin(Request $request) {
             "data"=> $user,
         ],200);
     }
+
+    else{
+        return response()->json([
+            "success" => false,
+            "message" => 'Email atau password anda salah'
+        ], 401);
+    }
 }
 }
