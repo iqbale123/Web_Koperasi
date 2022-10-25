@@ -6,15 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
 public function apilogin(Request $request) {
     $request->validate([
-       'email'=> 'required', 
-       'password'=> 'required', 
+       'email'=> 'required',
+       'password'=> 'required',
     ]);
 
     if(Auth::attempt(['email'=> $request->email,'password'=> $request->password]) ) {
