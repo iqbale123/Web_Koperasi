@@ -20,7 +20,7 @@ class Transaction extends Model
 
     public function products()
     {
-        return $this->belongsTo(Products::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function user() {
