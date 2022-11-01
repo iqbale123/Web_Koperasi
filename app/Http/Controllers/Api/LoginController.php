@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -17,6 +17,7 @@ public function apilogin(Request $request) {
        'password'=> 'required',
     ]);
 
+    // if auth succes
     if(Auth::attempt(['email'=> $request->email,'password'=> $request->password]) ) {
         $user = User::where('email',$request->email)->first();
         return response()->json([
@@ -25,10 +26,10 @@ public function apilogin(Request $request) {
         ],200);
     }
 
-    else{
+    else {
         return response()->json([
-            "success" => false,
-            "message" => 'Email atau password anda salah'
+            "succes" => false,
+            "message" => 'Email atau password anda salah',
         ], 401);
     }
 }
