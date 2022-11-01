@@ -9,12 +9,17 @@ class Kelas extends Model
 {
     use HasFactory;
 
+    protected $table = 'kelas';
+    
     protected $fillable = [
         'name'
     ];
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'kelas_id')
+            ->withDefault(function () {
+                return new user();
+            });
     }
 }

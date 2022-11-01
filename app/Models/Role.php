@@ -15,6 +15,9 @@ class Role extends Model
 
     public function user_roles()
     {
-        return $this->hasMany(UserRole::class);
+        return $this->hasMany(UserRole::class, 'role_id')
+            ->withDefault(function () {
+                return new UserRole();
+            });
     }
 }

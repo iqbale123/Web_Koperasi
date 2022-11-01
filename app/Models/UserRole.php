@@ -15,11 +15,17 @@ class UserRole extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)
+            ->withDefault(function () {
+                return new user();
+            });
     }
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class)
+            ->withDefault(function () {
+                return new role();
+            });
     }
 }

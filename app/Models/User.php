@@ -44,14 +44,23 @@ class User extends Authenticatable
     ];
 
     public function kelas() {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class)
+            ->withDefault(function () {
+                return new kelas();
+            });
     }
 
     public function user_role() {
-        return $this->hasOne(UserRole::class);
+        return $this->hasOne(UserRole::class, 'user_id')
+            ->withDefault(function () {
+                return new UserRole();
+            });
     }
 
     public function transaction() {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'user_id')
+            ->withDefault(function () {
+                return new transaction();
+            });
     }
 }

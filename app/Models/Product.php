@@ -16,8 +16,11 @@ class Product extends Model
         'ukuran'
     ];
 
-    public function transactions()
+    public function transaction()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'product_id')
+            ->withDefault(function () {
+                return new transaction();
+            });
     }
 }

@@ -20,21 +20,21 @@ class UserSeeder extends Seeder
             'username'=> 'Zoemohamed',
             'email' => 'zoemoh@gmail.com',
             'password'=> bcrypt('457899'),
-            'kelas_id'=> '21'
+            'kelas_id'=> 21
         ]);
 
         User::create([
             'username'=> 'DwiArya',
             'email' => 'dwick@gmail.com',
             'password'=> bcrypt('3433'),
-            'kelas_id'=> '21'
+            'kelas_id'=> 21
         ]);
 
         User::create([
             'username'=> 'Admin',
             'email' => 'admin@gmail.com',
             'password'=> bcrypt('admin10'),
-            'kelas_id'=> 'nullable'
+            'kelas_id'=> null
         ]);
     }
 }
