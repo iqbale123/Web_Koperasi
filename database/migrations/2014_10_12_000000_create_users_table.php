@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreignId('kelas_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('kelas_id')->references('id')->on('kelas');
         });
     }
 

@@ -15,13 +15,16 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constained;
-            $table->foreignId('user_id')->constained;
+            $table->foreignId('product_id');
+            $table->foreignId('user_id');
             $table->string('invoice_code');
             $table->integer('quantity');
             $table->string('status');
             $table->string('bukti');
             $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

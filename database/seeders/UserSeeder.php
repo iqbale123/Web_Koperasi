@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'username'=> 'Admin',
             'email' => 'admin@gmail.com',
             'password'=> bcrypt('admin10'),
-            'kelas_id'=> 'nullable'
+            'kelas_id'=> null
         ]);
     }
 }
