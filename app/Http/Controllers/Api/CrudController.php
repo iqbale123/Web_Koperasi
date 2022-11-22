@@ -20,14 +20,44 @@ class CrudController extends Controller
 
     public function create(Request $request){
 
-        $crud=new Product();
+        $validator  =   Validator::make($request->all(), [
+            'name' => 'required',
+            'price' => 'required',
+            "thumbnail" => "file|max:3072",
+            'ukuran' => 'required'
+        ]);
+
+
+        if($validator->fails()){
+            $error = $validator->errors()->first();
+
+            return response()->json([
+                "message" => $error
+            ]);
+
+        } else  {
+        $crud= new Product();
         $crud->name=$request->name;
         $crud->price=$request->price;
-        $crud->thumbnail=$request->thumbnail;
         $crud->ukuran=$request->ukuran;
+
+        $filename = "";
+        $crud->thumbnail = $filename;
+        if ($request->hasFile('thumbnail')) {
+            // dd("suge")
+            $filename = $request->file('thumbnail')->getClientOriginalName();
+            $request->file('thumbnail')->storeAs('/galeri', $filename);
+
+            $crud->thumbnail = url('storage/galeri/' . $filename);
+        }
+
         $crud->save();
 
-        return "Data Tersimpan";
+        return response()->json([
+            'data' => $crud
+        ]);
+        }
+
     }
 
     public function update(Request $request, $id){
